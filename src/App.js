@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import Card from './Components/Card';
+import axios from 'axios';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [input, setInput] = useState('');
+	const [imageGallery, setImageGallery] = useState([]);
+
+	useEffect(() => {
+		axios
+			.get(
+				`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${input}&image_type=illustration&pretty=true/`
+			)
+			.then((response) => {
+				setImageGallery(response.data);
+				console.log(response.data);
+			});
+	}, []);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setInput(e.target.value);
+	};
+
+	const handleChange = (e) => {
+		setInput(e.target.value);
+	};
+
+	return (
+		<div className="flex items-center justify-center">
+			<form className="px - 4" onSubmit={handleSubmit}>
+				<p>Enter search:</p>
+				<input
+					className="border-2 border-gray-800"
+					type="text"
+					value={input}
+					onChange={handleChange}
+				/>
+			</form>
+		</div>
+	);
 }
 
 export default App;
