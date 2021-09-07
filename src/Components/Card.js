@@ -1,27 +1,37 @@
 import React from 'react';
 
-export default function Card({ ok }) {
+export default function Card({ image }) {
+	const tags = image.tags.split(',');
+
 	return (
 		<div className="max-w-sm rounded overflow-hidden shadow-xl">
-			<img className="w-full" src={ok} alt="Display" />
+			<img className="w-full" src={image.webformatURL} alt="Display" />
 			<div className="px-6 py-4">
 				<div className="font-bold text-indigo-500 text-xl mb-2">
-					Orange Kitty
+					Photo by {image.user}
 				</div>
-				<p className=" text-gray-700 text-base">
-					When i’m not engaged in terrorism i switch to yakking up hairballs on
-					the carpet.
-					<span></span>😜
-				</p>
+				<ul>
+					<li>
+						likes: <strong>{image.likes}</strong>
+					</li>
+					<li>
+						views: <strong>{image.views}</strong>
+					</li>
+					<li>
+						downloads: <strong>{image.downloads}</strong>
+					</li>
+				</ul>
 			</div>
 			<div className="px-6 py-4">
-				<span
-					className="inline-block bg-gray-200 rounded-full px-3 py-1 
+				{tags.map((item) => (
+					<span
+						className="inline-block bg-gray-200 rounded-full px-3 py-1 
         text-sm font-semibold text-gray-700 mr-2"
-				>
-					#OK
-				</span>
-				<span
+					>
+						#{item}
+					</span>
+				))}
+				{/* <span
 					className="inline-block bg-gray-200 rounded-full px-3 py-1 
         text-sm font-semibold text-gray-700 mr-2"
 				>
@@ -32,7 +42,7 @@ export default function Card({ ok }) {
         text-sm font-semibold text-gray-700 mt-2 ml-20"
 				>
 					#Public Menace
-				</span>
+				</span> */}
 			</div>
 		</div>
 	);

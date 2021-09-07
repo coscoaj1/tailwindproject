@@ -10,13 +10,14 @@ function App() {
 	useEffect(() => {
 		axios
 			.get(
-				`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${input}&image_type=illustration&pretty=true/`
+				`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${input}&image_type=image&pretty=true/`
 			)
 			.then((response) => {
-				setImageGallery(response.data);
-				console.log(response.data);
+				setImageGallery(response.data.hits);
+				console.log(response.data.hits);
+				console.log(imageGallery);
 			});
-	}, []);
+	}, [input]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -25,10 +26,11 @@ function App() {
 
 	const handleChange = (e) => {
 		setInput(e.target.value);
+		console.log(e.target.value);
 	};
 
 	return (
-		<div className="flex items-center justify-center">
+		<div>
 			<form className="px - 4" onSubmit={handleSubmit}>
 				<p>Enter search:</p>
 				<input
@@ -38,6 +40,11 @@ function App() {
 					onChange={handleChange}
 				/>
 			</form>
+			<div className="grid grid-cols-3 gap-4">
+				{imageGallery.map((image) => (
+					<Card key={image.id} image={image} />
+				))}
+			</div>
 		</div>
 	);
 }
