@@ -31,18 +31,6 @@ export default function Card({ image }) {
 						#{item}
 					</span>
 				))}
-				{/* <span
-					className="inline-block bg-gray-200 rounded-full px-3 py-1 
-        text-sm font-semibold text-gray-700 mr-2"
-				>
-					#Al Qaeda
-				</span>
-				<span
-					className="inline-block bg-gray-200 rounded-full px-3 py-1 
-        text-sm font-semibold text-gray-700 mt-2 ml-20"
-				>
-					#Public Menace
-				</span> */}
 			</div>
 		</div>
 	);
